@@ -5,10 +5,7 @@ import com.example.newton.ustube.models.entities.Video;
 import com.example.newton.ustube.repositories.VideoRepository;
 import com.example.newton.ustube.services.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/video")
@@ -25,6 +22,11 @@ public class VideoController {
     @PostMapping
     public Video uploadVideo(@RequestBody VideoCreationDto video){
         return videoService.addVideo(video);
+    }
+
+    @GetMapping
+    public Video getVideo(@RequestParam String id){
+        return videoService.getVideo(id);
     }
 
 }

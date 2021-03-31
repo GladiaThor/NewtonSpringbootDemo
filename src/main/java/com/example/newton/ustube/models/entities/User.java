@@ -40,7 +40,8 @@ public class User {
     @OneToMany(mappedBy = "contentMeta.poster")
     private List<Comment> comments;
 
-    @OneToMany(mappedBy = "contentMeta.poster")
+    @OneToMany(mappedBy = "contentMeta.poster", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Video> videos;
 
     private String name;
