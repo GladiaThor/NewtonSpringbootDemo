@@ -1,0 +1,35 @@
+version: '2'
+
+services:
+
+  ustube:
+    image: ustube:latest
+    build:
+      context: .
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://ustube-db:3306/springboot_test?autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: pass
+    ports:
+    - 8080:8080
+    depends_on:
+      - ustube-db
+    networks:
+      - ustube-network
+
+  ustube-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: springboot_test
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+    ports:
+    - 3306:3306
+    networks:
+      - ustube-network
+
+networks:
+  ustube-network:
+    driver: bridge
+
