@@ -13,7 +13,8 @@ services:
     ports:
     - 8080:8080
     depends_on:
-      - ustube-db
+      ustube-db:
+          condition: service_healthy
     networks:
       - ustube-network
 
@@ -28,6 +29,10 @@ services:
     - 3306:3306
     networks:
       - ustube-network
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
 
 networks:
   ustube-network:
